@@ -14,8 +14,8 @@ const productQuery = (slug: string) =>
   });
 
 export const Route = createFileRoute("/shop/$slug")({
-  head: ({ loaderData }) => {
-    const p = loaderData;
+  head: (ctx) => {
+    const p = ctx.loaderData as Awaited<ReturnType<typeof getProduct>> | undefined;
     if (!p) return { meta: [{ title: "Not found — Maison Ocre" }] };
     return {
       meta: [
